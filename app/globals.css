@@ -1,0 +1,103 @@
+@import "tailwindcss";
+
+:root {
+  /* Base */
+  --color-cream: #f7f2ec;
+  --color-ink: #1a1815;
+
+  /* Accents (from the reference) */
+  --color-pink: #f3a3c4;
+  --color-pink-deep: #e8639f;
+  --color-lilac: #b6a4ef;
+  --color-violet: #8b6ae8;
+  --color-plum: #2c1b3d;
+
+  /* Card surfaces */
+  --color-card-1: #1f1024;
+  --color-card-2: #3a1230;
+  --color-card-3: #2a1836;
+
+  --radius-blob: 3.5rem;
+}
+
+@theme inline {
+  --color-cream: var(--color-cream);
+  --color-ink: var(--color-ink);
+  --color-pink: var(--color-pink);
+  --color-pink-deep: var(--color-pink-deep);
+  --color-lilac: var(--color-lilac);
+  --color-violet: var(--color-violet);
+  --color-plum: var(--color-plum);
+  --color-card-1: var(--color-card-1);
+  --color-card-2: var(--color-card-2);
+  --color-card-3: var(--color-card-3);
+
+  --font-display: 'Unbounded', system-ui, sans-serif;
+  --font-body: 'Manrope', system-ui, sans-serif;
+
+  --radius-blob: var(--radius-blob);
+
+  --animate-fade-up: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-spin-slow: spin 14s linear infinite;
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-body), system-ui, sans-serif;
+}
+
+/* Distinctive asymmetric "blob" corners used for hero / about imagery,
+   matching the reference's non-standard rounded shapes. */
+.blob-hero {
+  border-radius: 3rem 3rem 3rem 10rem;
+}
+
+.blob-about {
+  border-radius: 3rem 10rem 3rem 3rem;
+}
+
+@media (max-width: 767px) {
+  .blob-hero,
+  .blob-about {
+    border-radius: 2rem 2rem 2rem 5rem;
+  }
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Reveal-on-scroll utility, toggled via IntersectionObserver in components */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
